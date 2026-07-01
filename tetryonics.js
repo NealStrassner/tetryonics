@@ -1139,7 +1139,53 @@
     allUnits: () => Object.keys(UNITS).map(q => units.describe(q)),
     colourCodes: () => ({energy_level: geometry.LEVEL_COLOURS, physics_property: geometry.PROPERTY_COLOURS})};
 
-  return {version: "0.13.0", constants, geometry, energy, charge, fields, levels,
+  // ---- Fascia: ONE flat equilateral triangle of charged EM mass-energy (JS parity with Python geometry.Fascia).
+  //      Given level n and sign (+1 cw / -1 ccw / 0 neutral), exposes its full FLAT 2D map — shape/tessellation,
+  //      flat energy, flat mass, and scalar charge — every value sourced from the library objects above.
+  const Fascia = (level = 1, sign = 1) => {
+    const n = Math.max(1, level | 0), N = geometry.unitsInTriangle(n);        // n² Planck coins
+    const rows = []; for (let r = 1; r <= n; r++) rows.push(geometry.unitsInRow(r)); // 1,3,5… (2r-1)
+    const cw = sign > 0 ? 1 : 0, ccw = sign < 0 ? 1 : 0;
+    const E = energy.energyFromQuanta(N);
+    return {
+      level: n, sign,
+      // shape & tessellation
+      units: N, rows, upDown: geometry.upDownInRow(n),
+      oddSum: geometry.oddSumToSquare(n),
+      colour: sign > 0 ? "Red" : sign < 0 ? "Black" : "Blue",  // charge colour (parity with Python Fascia.colour)
+      levelColour: geometry.levelColour(n),                     // energy-level colour (chromatic scale)
+      area: (base = 1) => geometry.equilateralArea(base),
+      // flat energy (E = N·h)
+      energy: E, unitEnergy: H, quanta: energy.quantaFromEnergy(E),           // round-trips → N
+      // flat mass (m = N·m_q = E/c²)
+      mass: energy.massFromQuanta(N), unitMass: M_Q,
+      massFromEmMass: energy.emMass(E),                                       // E/c² → same mass (cross-check)
+      massQuanta: energy.quantaFromMass(energy.massFromQuanta(N)),            // round-trips → N
+      emMass: (e) => energy.emMass(e),
+      // scalar charge (net ±1, q = Ω/c²) — level-independent
+      netQuanta: charge.netQuanta(cw, ccw),
+      chargeQuantum: charge.chargeFromQam(OMEGA),                             // q = Ω/c²
+      chargeCoulombs: charge.chargeCoulombs(cw, ccw),                         // ±q C
+      chargeInE: charge.chargeInE(cw, ccw),                                   // ±1/12 e
+    };
+  };
+  geometry.Fascia = Fascia;   // mirror Python's geometry.Fascia
+
+  // ---- Photon: a planar DIAMOND (rhombus) of two opposite-handed fascia (JS parity with Python geometry.Photon).
+  //      Net-neutral and FLAT (2D — never folded into 3D like Matter), which is why it always moves at c.
+  //      Holds 2·n² Planck quanta; a photon = 2 bosons, hence its frequency f = 2v.
+  const Photon = (level = 1) => {
+    const n = Math.max(1, level | 0);
+    return {
+      level: n,
+      quanta: geometry.photonQuanta(n),          // 2·n²
+      bosons: 2, triangles: 2, isPlanar: true,
+      vertices: (size = 1) => geometry.photonVertices(size),
+    };
+  };
+  geometry.Photon = Photon;   // mirror Python's geometry.Photon
+
+  return {version: "0.14.0", constants, geometry, energy, charge, fields, levels, Fascia, Photon,
     spectra, electrical, waves, radiation, optics, particles, elements, cosmology, geometrics,
     thermodynamics, statistics, numbertheory, music, biochem, kinematics, matter, dynamics, units};
 }));

@@ -60,7 +60,7 @@ from .elements import (
     Atom, element, hydrogen, deuterium, tritium, isotope, periodic_table,
 )
 
-__version__ = "0.13.0"
+__version__ = "0.14.0"
 __author__ = "Built on the Tetryonic geometry of Kelvin Abraham (used with permission)"
 
 __all__ = [
