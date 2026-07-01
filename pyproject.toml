@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tetryonics"
+version = "0.13.0"
+description = "A computational engine for Kelvin Abraham's Tetryonic geometry — physics from equilateral triangles."
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["tetryonics", "physics", "quantum", "geometry", "equilateral", "abraham"]
+authors = [{ name = "Neal Strassner" }]
+license = "LicenseRef-PolyForm-Noncommercial-1.0.0"
+license-files = ["LICENSE"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Intended Audience :: Science/Research",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://www.tetryonics.com"
+
+[tool.setuptools]
+packages = ["tetryonics"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
