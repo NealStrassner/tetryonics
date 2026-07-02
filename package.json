@@ -1,6 +1,6 @@
 {
   "name": "tetryonics",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Computational library for Kelvin Abraham's Tetryonic geometry — physics from equilateral triangles.",
   "main": "tetryonics.js",
   "author": "Neal Strassner",

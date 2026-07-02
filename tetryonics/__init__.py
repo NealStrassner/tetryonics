@@ -47,7 +47,7 @@ from . import (
 
 # Re-export the most-used builders / helpers at the top level.
 from .geometry import (
-    Fascia, Tetryon,
+    Fascia, Photon, Tetryon,
     positive_tetryon, negative_tetryon, neutral_tetryon,
     units_in_triangle, units_in_row, is_square, equilateral_area, level_colour,
 )
@@ -60,7 +60,7 @@ from .elements import (
     Atom, element, hydrogen, deuterium, tritium, isotope, periodic_table,
 )
 
-__version__ = "0.14.0"
+__version__ = "0.14.1"
 __author__ = "Built on the Tetryonic geometry of Kelvin Abraham (used with permission)"
 
 __all__ = [
@@ -70,7 +70,7 @@ __all__ = [
     "radiation", "cosmology", "geometrics", "optics", "thermodynamics", "statistics",
     "numbertheory", "music", "biochem", "kinematics", "dynamics", "matter",
     # geometry
-    "Fascia", "Tetryon", "positive_tetryon", "negative_tetryon", "neutral_tetryon",
+    "Fascia", "Photon", "Tetryon", "positive_tetryon", "negative_tetryon", "neutral_tetryon",
     "units_in_triangle", "units_in_row", "is_square", "equilateral_area", "level_colour",
     # particles
     "Particle", "quark", "electron", "positron", "neutrino",
